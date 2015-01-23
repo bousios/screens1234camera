@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">  
+    <title>screen2</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="checkConnection.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+ 			var pictureSource;   // picture source
+    		var destinationType; // sets the format of returned value
+
+
+
+            // Wait for device API libraries to load
+            document.addEventListener("deviceready", onDeviceReady, false);
+
+            // device APIs are available
+            
+            
+            
+            
+
+            function onDeviceReady() {
+            	
+                // find all contacts with 'Bob' in any name field
+                if(!navigator.onLine){alert("Δεν υπάρχει ενεργή σύνδεση δικτύου. Παρακαλώ συνδεθείτε...");}
+                window.localStorage.clear();
+                window.localStorage.setItem("Epafi_epitheto", "");
+                window.localStorage.setItem("Epafi_onoma", "");
+                window.localStorage.setItem("Epafi_tilefono", "");
+                document.getElementById("saveButton").addEventListener("click", saveFunction);
+                
+                pictureSource=navigator.camera.PictureSourceType;
+        		destinationType=navigator.camera.DestinationType;
+                
+                
+            }
+
+            function saveFunction(e){
+            
+               window.localStorage.setItem("Epafi_epitheto", document.getElementById("epitheto").value);
+               window.localStorage.setItem("Epafi_onoma", document.getElementById("onoma").value);
+               window.localStorage.setItem("Epafi_tilefono", document.getElementById("tilefono").value);
+               
+               alert(window.localStorage.getItem("Epafi_epitheto"));
+               alert(window.localStorage.getItem("Epafi_onoma"));
+               alert(window.localStorage.getItem("Epafi_tilefono"));
+               window.location="screen5.html";
+            
+            }
+            
+      
+      
+    function onPhotoDataSuccess(imageData) {
+
+      alert("onPhotoDataSuccess");
+
+    }
+    
+        function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+            
+            
+            function capturePhoto() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50});
+
+    
+    }
+
+   
+    </script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />  
+    <h1>MyContacts</h1>
+  </head>
+  <body bgcolor="#D1D4F3" >
+    	<div style="text-align:center">
+    		<h2>Καταχώρηση Επαφής</h2>
+    		<br />
+    		<input type="text" id="epitheto" placeholder="Επώνυμο" />
+    		<br/><br/>
+    		<input type="text" id="onoma" placeholder="Όνομα" />
+    		<br/><br/>
+    		 <input type="text" id="tilefono" placeholder="Τηλέφωνο" />
+    		<br/><br/>
+    		<button style="width:120 px; height:50px" onclick="capturePhoto();">Φωτογραφία</button>
+    		<br/><br/>
+    		<input type="button" id="saveButton" value="Αποθήκευση"/>
+    		<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    		<img style="display:none;" id="largeImage" src="" />
+  </body>
+</html>

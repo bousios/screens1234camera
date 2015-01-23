@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">  
+    <title>screen2</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="checkConnection.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+           
+            document.addEventListener("deviceready", onDeviceReady, false);
+
+            function onDeviceReady() {
+              	
+    	 		if(!navigator.onLine){alert("Δεν υπάρχει ενεργή σύνδεση δικτύου. Παρακαλώ συνδεθείτε...");}
+                document.getElementById("searchButton").addEventListener("click", searchFunction);
+             
+                
+            }
+
+            // onSuccess: Get a snapshot of the current contacts
+
+            function searchFunction() {
+            
+            	var pedio=document.getElementById("onoma").value;
+            	var options = new ContactFindOptions();
+                options.filter = pedio;
+                
+                options.multiple=false;
+                var fields = ["displayName", "name"];
+                
+                navigator.contacts.find(fields, onSuccess, onError, options);
+            }    
+            
+            function onSuccess(contacts){
+                
+               alert("success" +contacts.length);
+               if (contacts.length==0){
+                 if (confirm("Θέλετε να καταχωρήσετε μια νέα επαφή ;")) {
+                     window.location="screen4.html";
+                 } else
+                   { navigator.app.exitApp();
+                   }  
+               }
+                }
+
+
+            
+          // onError: Failed to get the contacts
+
+            function onError(contactError) {
+                alert("Προέκυψε ένα σφάλμα στην διαδικασία της αναζήτησης. Προσπαθήστε ξανά.");
+            }
+   
+    </script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />  
+    <h1>MyContacts</h1>
+  </head>
+  <body bgcolor="#D1D4F3" >
+    	<div style="text-align:center">
+    		<h2>Αναζήτηση Επαφής</h2>
+    		<br />
+    		<input type="text" id="onoma" placeholder="Επώνυμο" />
+    		<br/> <br/> <br/>
+    		<input type="button" id="searchButton" value="Αναζήτηση"/>
+        </div>
+  </body>
+</html>

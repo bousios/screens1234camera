@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">  
+    <title>screen2</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        if(!navigator.onLine){alert("Δεν υπάρχει ενεργή σύνδεση δικτύου. Παρακαλώ συνδεθείτε...");}
+        checkConnection();
+    }
+
+    function checkConnection() {
+        
+        setInterval(function(){
+            
+            var networkState = navigator.connection.type;
+		    var states = {};
+            states[Connection.UNKNOWN]  = 'Unknown connection';
+            states[Connection.ETHERNET] = 'Ethernet connection';
+            states[Connection.WIFI]     = 'WiFi connection';
+            states[Connection.CELL_2G]  = 'Cell 2G connection';
+            states[Connection.CELL_3G]  = 'Cell 3G connection';
+            states[Connection.CELL_4G]  = 'Cell 4G connection';
+            states[Connection.CELL]     = 'Cell generic connection';
+            states[Connection.NONE]     = 'No network connection';
+
+            if (!(networkState==Connection.NONE)){
+                alert('Ενεργή σύνδεση δικτύου: ' + states[networkState]);
+                window.location = "screen3.html";
+            }
+            
+        }, 2000);
+     }   
+
+    </script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />  
+    <h1>MyContacts</h1>
+  </head>
+  <body bgcolor="#D1D4F3" >
+	<div class="body">Έλεγχος για ενεργή σύνδεση δικτύου. Παρακαλώ περιμένετε....</div>
+   </body>
+</html>
